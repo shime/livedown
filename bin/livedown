@@ -1,0 +1,77 @@
+#!/usr/bin/env node
+
+var fs        = require('fs'),
+    minimist  = require('minimist'),
+    os        = require('os'),
+    exec      = require('child_process').exec,
+
+    argv      = minimist(process.argv.slice(2), { alias: { h: 'help' } }),
+    command   = argv._[0],
+    path      = argv._[1]
+
+var server = require('./../server')({
+  port: argv.port
+})
+
+switch (command){
+  case 'start':
+    if (!path) {
+      help()
+      return
+    }
+
+    server.start(path, function(err){
+      if (err) throw err;
+      if (argv.open) open(server.URI)
+      log('markdowning started on ' + server.URI)
+    })
+    break;
+
+  case 'stop':
+    server.stop(function(err){
+      if (err) log('cannot kill the server, is it running?')
+    });
+    break;
+
+  default:
+    help()
+}
+
+function help(){
+  fs.createReadStream(__dirname + '/usage.txt').pipe(process.stdout);
+}
+
+function log(message){
+  if (argv.verbose){
+    console.log('[livedown] ' + message)
+  }
+}
+
+function open(uri){
+  var platform   = os.platform(),
+      cannotOpen = function() {
+        console.log('cannot open browser, please visit ' + server.URI)
+      },
+      afterOpen  = function(error, stdout, stderr){
+        if (error || stderr){
+          cannotOpen()
+        }
+      }
+
+  switch (true){
+    case /darwin/.test(platform):
+      exec('open -g ' + server.URI, afterOpen)
+      break;
+
+    case /linux/.test(platform):
+      exec('xdg-open ' + server.URI, afterOpen)
+      break;
+
+    case /win/.test(platform):
+      exec('start ' + server.URI, afterOpen)
+      break;
+
+    default:
+      cannotOpen()
+  }
+}

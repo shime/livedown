@@ -1,0 +1,16 @@
+usage: livedown {COMMANDS} <PATH> {OPTIONS}
+
+  Previews markdown from PATH in browser and watches for changes.
+
+COMMANDS:
+  
+  start PATH      Starts watching a file on a given PATH.
+  stop            Stops the livedown process.
+
+OPTIONS:
+
+  -h, --help      You're reading it.
+  --open          Opens the preview in the browser.
+  --verbose       Provides debug messages.
+  --port PORT     Specifies the port to use.
+

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="/vendor/github-markdown.css">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/vendor/github.min.css">
+
+</head>
+<body>
+  <div class='markdown-body'>
+  </div>
+
+  <script src="/vendor/jquery.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/vendor/highlight.min.js"></script>
+  <script>
+
+    var socket = io.connect('http://localhost')
+
+    socket.on('content', function(data){
+      $('.markdown-body').html(data)
+      $('pre').each(function(_, block){
+        hljs.highlightBlock(block);
+      })
+    })
+    socket.on('title', function(data){
+      $('title').html(data)
+    })
+  </script>
+</body>
+</html>

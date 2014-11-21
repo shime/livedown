@@ -1,0 +1,28 @@
+{
+  "name": "livedown",
+  "version": "0.0.0",
+  "description": "Live Markdown previews for your favourite editor.",
+  "main": "server.js",
+  "author": "Hrvoje Simic <shime.ferovac@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.9.2",
+    "chokidar": "^0.11.1",
+    "express": "^4.10.2",
+    "marked": "^0.3.2",
+    "minimist": "^1.1.0",
+    "request": "^2.48.0",
+    "socket.io": "^1.2.0"
+  },
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^2.0.1",
+    "zombie": "^2.1.1"
+  },
+  "bin": {
+    "livedown": "bin/livedown"
+  },
+  "scripts": {
+    "test": "node ./node_modules/.bin/mocha"
+  }
+}
