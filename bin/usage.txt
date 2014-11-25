@@ -4,7 +4,7 @@ usage: livedown {COMMANDS} <PATH> {OPTIONS}
 
 COMMANDS:
   
-  start PATH      Starts watching a file on a given PATH.
+  start PATH      Starts watching a file on a given absolute PATH.
   stop            Stops the livedown process.
 
 OPTIONS:
