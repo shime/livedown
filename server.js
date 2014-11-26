@@ -33,6 +33,7 @@ function Server(opts){
     var self = this
     chokidar.watch(path).on('change', function(path, stats) {
       fs.readFile(path, 'utf8', function(err, data){
+        var data = data || ""
         self.sock.emit('content', marked(data))
       })
     })
@@ -60,6 +61,7 @@ Server.prototype.start = function(filePath, next){
     self.sock = socket
     self.sock.emit('title', path.basename(filePath))
     fs.readFile(filePath, 'utf8', function(err, data){
+      var data = data || ""
       self.sock.emit('content', marked(data))
     })
   })
