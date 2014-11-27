@@ -1,6 +1,6 @@
 {
   "name": "livedown",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Live Markdown previews for your favourite editor.",
   "main": "server.js",
   "author": "Hrvoje Simic <shime.ferovac@gmail.com>",
