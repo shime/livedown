@@ -24,5 +24,16 @@
   },
   "scripts": {
     "test": "node ./node_modules/.bin/mocha"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shime/livedown.git"
+  },
+  "keywords": [
+    "markdown", "preview", "live", "realtime"
+  ],
+  "bugs": {
+    "url": "https://github.com/shime/livedown/issues"
+  },
+  "homepage": "https://github.com/shime/livedown"
 }
