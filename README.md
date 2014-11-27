@@ -1,6 +1,7 @@
 # Livedown
 
-![](https://raw.githubusercontent.com/shime/livedown/master/demo.gif)
+![](https://raw.githubusercontent.com/shime/livedown-demos/master/vim.gif)
+
 
 [![Build Status](https://travis-ci.org/shime/livedown.svg)](https://travis-ci.org/shime/livedown)
 
