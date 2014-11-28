@@ -19,9 +19,11 @@
 
     var socket = io.connect('http://localhost')
 
+    hljs.configure({languages: []})
+
     socket.on('content', function(data){
       $('.markdown-body').html(data)
-      $('pre').each(function(_, block){
+      $('code').each(function(_, block){
         hljs.highlightBlock(block);
       })
     })
