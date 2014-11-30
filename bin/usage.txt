@@ -13,4 +13,5 @@ OPTIONS:
   --open          Opens the preview in the browser.
   --verbose       Provides debug messages.
   --port PORT     Specifies the port to use.
+  --browser       Specifies the browser to use.
 

@@ -56,19 +56,23 @@ function open(uri){
         if (error || stderr){
           cannotOpen()
         }
-      }
+      },
+      command = argv.browser
 
   switch (true){
     case /darwin/.test(platform):
-      exec('open -g ' + server.URI, afterOpen)
+      command = command || 'open -g'
+      exec(command + ' ' + server.URI, afterOpen)
       break;
 
     case /linux/.test(platform):
-      exec('xdg-open ' + server.URI, afterOpen)
+      command = command || 'xdg-open'
+      exec(command + ' ' + server.URI, afterOpen)
       break;
 
     case /win/.test(platform):
-      exec('start ' + server.URI, afterOpen)
+      command = command || 'start'
+      exec(command + ' ' + server.URI, afterOpen)
       break;
 
     default:
