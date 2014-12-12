@@ -11,6 +11,8 @@ var path     = require('path'),
     marked   = require('marked'),
     minimist = require('minimist')
 
+    utils    = require('./utils')
+
 module.exports = function(opts) {
   return new Server(opts)
 }
@@ -50,7 +52,11 @@ Server.prototype.stop = function(next){
 }
 
 Server.prototype.start = function(filePath, next){
-  var self  = this
+  var self  = this,
+      sendFileOpts = {}
+
+  if (utils.isPathRelative(filePath))
+    sendFileOpts.root = path.resolve(__dirname)
 
   this.stop(function(){
     self.watch(filePath)
@@ -70,7 +76,7 @@ Server.prototype.start = function(filePath, next){
   app.use(express.static(path.join(__dirname, 'public')))
   app.use(function(req, res, next){
     if (new RegExp('.' + ImageExtesions.join('|') + "$").test(req.path)){
-      res.sendFile(path.join(filePath, '../' + req.path))
+      res.sendFile(path.join(filePath, '../' + req.path), sendFileOpts)
     } else {
       next()
     }
