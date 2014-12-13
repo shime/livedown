@@ -87,6 +87,7 @@ Server.prototype.start = function(filePath, next){
   })
 
   app.delete('/', function(req, res){
+    io.emit('kill');
     res.end()
     process.exit()
   })
