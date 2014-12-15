@@ -33,6 +33,10 @@
     socket.on('title', function(data){
       $('title').html(data)
     })
+    socket.on('kill', function(){
+      window.open('', '_self', '');
+      window.close();
+    })
   </script>
 </body>
 </html>
