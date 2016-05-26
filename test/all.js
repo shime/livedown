@@ -14,6 +14,8 @@ describe('livedown', function(){
 
   it('renders markdown correctly', function(done){
     browser.visit('/', function (error) {
+      if (error) { return done(error) }
+
       expect(browser.evaluate("$('.markdown-body h1').text()")).to.be('h1')
       done()
     });
@@ -29,7 +31,11 @@ describe('livedown', function(){
 
     it('live updates the rendered markdown', function(done){
       browser.visit('/', function (error) {
-        fs.writeFile(fixturePath, '## h2', function(){
+        if (error) { return done(error) }
+
+        fs.writeFile(fixturePath, '## h2', function(error){
+          if (error) { return done(error) }
+
           setTimeout(function(){
             expect(browser.evaluate("$('.markdown-body h2').text()")).to.be('h2')
             done()
