@@ -5,7 +5,7 @@ var expect  = require('expect.js'),
     fs      = require('fs')
 
 Browser.localhost('localhost', 1337)
-var browser = new Browser()
+var browser = Browser.create()
 
 describe('livedown', function(){
   before(function(){
