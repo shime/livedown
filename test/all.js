@@ -5,7 +5,7 @@ var expect  = require('expect.js'),
 
 Browser.localhost('localhost', 1337)
 
-describe('livedown', function(done){
+describe('livedown', function(){
   before(function(){
     server.start('test/fixtures/basic.md')
   })
