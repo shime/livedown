@@ -8,7 +8,7 @@
   "dependencies": {
     "body-parser": "^1.9.2",
     "chokidar": "^1.5.1",
-    "express": "^4.10.2",
+    "express": "^4.13.4",
     "marked": "^0.3.2",
     "minimist": "^1.1.0",
     "request": "^2.48.0",
