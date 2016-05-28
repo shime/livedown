@@ -24,8 +24,13 @@ describe('livedown', function(){
     var fixtureContent,
         fixturePath = 'test/fixtures/basic.md'
 
-    before(function(){
-      fixtureContent = fs.readFileSync(fixturePath, 'utf8')
+    before(function(done){
+      fs.readFile(fixturePath, 'utf8', function(error, data){
+        if (error) { return done(error) }
+
+        fixtureContent = data;
+        done();
+      })
     })
 
     before(function(done) {
@@ -41,8 +46,8 @@ describe('livedown', function(){
       done()
     })
 
-    after(function(){
-      fs.writeFileSync(fixturePath, fixtureContent)
+    after(function(done){
+      fs.writeFile(fixturePath, fixtureContent, done)
     })
   })
 
