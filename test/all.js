@@ -1,5 +1,4 @@
 var expect  = require('expect.js'),
-    exec    = require('child_process').exec,
     Browser = require('zombie'),
     server  = require('./../server')(),
     fs      = require('fs')
