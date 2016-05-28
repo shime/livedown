@@ -19,6 +19,9 @@
     "mocha": "^2.5.3",
     "zombie": "^2.5.1"
   },
+  "optionalDependencies": {
+    "fsevents": "*"
+  },
   "bin": {
     "livedown": "bin/livedown"
   },
