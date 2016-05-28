@@ -12,7 +12,7 @@ describe('livedown', function(){
   })
 
   it('renders markdown correctly', function(done){
-    browser.visit('/', function (error) {
+    browser.visit('/', function(error) {
       if (error) { return done(error) }
 
       expect(browser.evaluate("$('.markdown-body h1').text()")).to.be('h1')
@@ -32,7 +32,7 @@ describe('livedown', function(){
       fs.writeFile(fixturePath, '## h2', function(error){
         if (error) { return done(error) }
 
-        browser.visit('/', function (error) {
+        browser.visit('/', function(error) {
           if (error) { return done(error) }
 
           expect(browser.evaluate("$('.markdown-body h2').text()")).to.be('h2')
