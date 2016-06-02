@@ -23,6 +23,7 @@ var sdc = new showdown.Converter()
 sdc.setOption('tasklists', true)
 sdc.setOption('literalMidWordUnderscores', true)
 sdc.setOption('tables', true)
+sdc.setOption('strikethrough', true)
 
 function Server(opts){
   var opts = opts || {}
