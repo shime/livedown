@@ -1,9 +1,9 @@
 {
   "name": "livedown",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Live Markdown previews for your favourite editor.",
   "main": "server.js",
-  "author": "Hrvoje Simic <shime.ferovac@gmail.com>",
+  "author": "Hrvoje Simic <hrvoje@twobucks.co>",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.9.2",
