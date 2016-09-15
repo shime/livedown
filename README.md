@@ -1,7 +1,6 @@
 # Livedown
 
-![](http://i.imgur.com/I2xWLRs.gif)
-
+![](https://twobucks.co/assets/livedown.gif)
 
 [![Build Status](https://travis-ci.org/shime/livedown.svg)](https://travis-ci.org/shime/livedown)
 
