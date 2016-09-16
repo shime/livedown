@@ -9,8 +9,6 @@ var path     = require('path'),
     parser   = require('body-parser'),
     request  = require('request'),
     marked   = require('marked'),
-    minimist = require('minimist')
-
     utils    = require('./utils')
 
 module.exports = function(opts) {
