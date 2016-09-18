@@ -8,7 +8,7 @@ var path     = require('path'),
     chokidar = require('chokidar'),
     parser   = require('body-parser'),
     request  = require('request'),
-    marked   = require('marked'),
+    showdown = require('showdown'),
     minimist = require('minimist')
 
     utils    = require('./utils')
@@ -18,6 +18,12 @@ module.exports = function(opts) {
 }
 
 var ImageExtesions = "jpg jpeg gif png svg bmp xbm".split(' ')
+
+var sdc = new showdown.Converter()
+sdc.setOption('tasklists', true)
+sdc.setOption('literalMidWordUnderscores', true)
+sdc.setOption('tables', true)
+sdc.setOption('strikethrough', true)
 
 function Server(opts){
   var opts = opts || {}
@@ -36,7 +42,7 @@ function Server(opts){
     chokidar.watch(path).on('change', function(path, stats) {
       fs.readFile(path, 'utf8', function(err, data){
         var data = data || ""
-        self.sock.emit('content', marked(data))
+        self.sock.emit('content', sdc.makeHtml(data))
       })
     })
   }
@@ -68,7 +74,7 @@ Server.prototype.start = function(filePath, next){
     self.sock.emit('title', path.basename(filePath))
     fs.readFile(filePath, 'utf8', function(err, data){
       var data = data || ""
-      self.sock.emit('content', marked(data))
+      self.sock.emit('content', sdc.makeHtml(data))
     })
   })
 
