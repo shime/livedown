@@ -2,6 +2,7 @@
 
 var fs        = require('fs'),
     minimist  = require('minimist'),
+    opn       = require('opn'),
     os        = require('os'),
     exec      = require('child_process').exec,
 
@@ -48,34 +49,7 @@ function log(message){
 }
 
 function open(uri){
-  var platform   = os.platform(),
-      cannotOpen = function() {
-        console.log('cannot open browser, please visit ' + server.URI)
-      },
-      afterOpen  = function(error, stdout, stderr){
-        if (error || stderr){
-          cannotOpen()
-        }
-      },
-      command = argv.browser
-
-  switch (true){
-    case /darwin/.test(platform):
-      command = command || 'open -g'
-      exec(command + ' ' + server.URI, afterOpen)
-      break;
-
-    case /linux/.test(platform):
-      command = command || 'xdg-open'
-      exec(command + ' ' + server.URI, afterOpen)
-      break;
-
-    case /win/.test(platform):
-      command = command || 'start'
-      exec(command + ' ' + server.URI, afterOpen)
-      break;
-
-    default:
-      cannotOpen()
-  }
+  opn(uri, {app: argv.browser}).then(null, function(err){
+    console.log('cannot open browser, please visit ' + server.URI)
+  })
 }
