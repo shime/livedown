@@ -25,7 +25,7 @@
     "livedown": "bin/livedown"
   },
   "scripts": {
-    "test": "node node_modules/.bin/standard && node ./node_modules/.bin/mocha"
+    "test": "node node_modules/.bin/standard test/* server.js bin/livedown utils.js public/client.js && node ./node_modules/.bin/mocha"
   },
   "repository": {
     "type": "git",

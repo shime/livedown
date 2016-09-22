@@ -1,55 +1,57 @@
 #!/usr/bin/env node
 
-var fs        = require('fs'),
-    minimist  = require('minimist'),
-    opn       = require('opn'),
-    os        = require('os'),
-    exec      = require('child_process').exec,
+var fs = require('fs')
+var minimist = require('minimist')
+var opn = require('opn')
+var path = require('path')
 
-    argv      = minimist(process.argv.slice(2), { alias: { h: 'help' } }),
-    command   = argv._[0],
-    path      = argv._[1]
+var argv = minimist(process.argv.slice(2), { alias: { h: 'help' } })
+var command = argv._[0]
+var filePath = argv._[1]
 
 var server = require('./../server')({
   port: argv.port
 })
 
-switch (command){
-  case 'start':
-    if (!path) {
-      help()
-      return
-    }
-
-    server.start(path, function(err){
-      if (err) throw err;
-      if (argv.open) open(server.URI)
-      log('markdowning started on ' + server.URI)
-    })
-    break;
-
-  case 'stop':
-    server.stop(function(err){
-      if (err) log('cannot kill the server, is it running?')
-    });
-    break;
-
-  default:
-    help()
+function help () {
+  fs.createReadStream(path.join(__dirname, 'usage.txt')).pipe(process.stdout)
 }
 
-function help(){
-  fs.createReadStream(__dirname + '/usage.txt').pipe(process.stdout);
-}
-
-function log(message){
-  if (argv.verbose){
+function log (message) {
+  if (argv.verbose) {
     console.log('[livedown] ' + message)
   }
 }
 
-function open(uri){
-  opn(uri, {app: argv.browser}).then(null, function(err){
+function open (uri) {
+  opn(uri, {app: argv.browser}).then(null, function () {
     console.log('cannot open browser, please visit ' + server.URI)
   })
 }
+
+function run () {
+  switch (command) {
+    case 'start':
+      if (!filePath) {
+        help()
+        return
+      }
+
+      server.start(filePath, function (err) {
+        if (err) throw err
+        if (argv.open) open(server.URI)
+        log('markdowning started on ' + server.URI)
+      })
+      break
+
+    case 'stop':
+      server.stop(function (err) {
+        if (err) log('cannot kill the server, is it running?')
+      })
+      break
+
+    default:
+      help()
+  }
+}
+run()
