@@ -19,7 +19,7 @@
     "expect.js": "^0.3.1",
     "mocha": "^2.0.1",
     "standard": "^8.1.0",
-    "zombie": "^2.1.1"
+    "zombie": "^4.2.1"
   },
   "bin": {
     "livedown": "bin/livedown"
