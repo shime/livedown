@@ -18,9 +18,14 @@ Live markdown previews for your favorite editor.
 
     $ livedown --help
 
-## Prior art
+## Alternatives
 
 [vim-instant-markdown](https://github.com/suan/vim-instant-markdown)
+[octodown](https://github.com/ianks/octodown)
+[vmd](https://github.com/yoshuawuyts/vmd)
+[markdown-preview](https://github.com/yuanchuan/markdown-preview)
+[grip](https://github.com/joeyespo/grip)
+[gfms](https://github.com/youurayy/gfms)
 
 ## License
 
