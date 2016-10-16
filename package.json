@@ -7,7 +7,7 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.9.2",
-    "chokidar": "^1.5.1",
+    "chokidar": "^1.6.1",
     "express": "^4.10.2",
     "marked": "^0.3.6",
     "minimist": "^1.1.0",
