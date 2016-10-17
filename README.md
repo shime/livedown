@@ -3,6 +3,7 @@
 ![](https://twobucks.co/assets/livedown.gif)
 
 [![Build Status](https://travis-ci.org/shime/livedown.svg)](https://travis-ci.org/shime/livedown)
+[![Downloads](https://img.shields.io/npm/dt/livedown.svg)](https://npmjs.org/package/livedown)
 
 Live markdown previews for your favorite editor.
 
