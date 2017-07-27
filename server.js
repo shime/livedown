@@ -7,7 +7,20 @@ var socket = require('socket.io')
 var chokidar = require('chokidar')
 var parser = require('body-parser')
 var request = require('request')
-var marked = require('marked')
+var markdownIt = require('markdown-it')
+var markdownItCheckbox = require('markdown-it-checkbox')
+var markdownItEmoji = require('markdown-it-emoji')
+var markdownItGitHubHeadings = require('markdown-it-github-headings')
+
+var md = markdownIt({
+  html: true,
+  linkify: true
+})
+md.use(markdownItCheckbox)
+md.use(markdownItEmoji)
+md.use(markdownItGitHubHeadings, {
+  prefix: ''
+})
 
 var app = express()
 var server = http.Server(app)
@@ -19,17 +32,19 @@ module.exports = function (opts) {
   return new Server(opts)
 }
 
-var ImageExtesions = 'jpg jpeg gif png svg bmp xbm'.split(' ')
+var ImageExtensions = 'jpg jpeg gif png svg bmp xbm'.split(' ')
 
 function Server (opts) {
   opts = opts || {}
+
+  var self = this
 
   this.port = opts.port || 1337
   this.URI = 'http://localhost:' + this.port
   this.sock = {emit: function () {}}
 
   this.listen = function (next) {
-    server.listen(this.port, next)
+    server.listen(self.port, next)
   }
 
   this.watch = function (path) {
@@ -38,18 +53,18 @@ function Server (opts) {
       fs.readFile(path, 'utf8', function (err, data) {
         if (err) throw err
         data = data || ''
-        self.sock.emit('content', marked(data))
+        self.sock.emit('content', md.render(data))
       })
     })
   }
 }
 
 Server.prototype.stop = function (next) {
-  request.del(this.URI,
-              {headers: {'Content-Type': 'application/json'}}, function (err) {
-                if (err) return next(err)
-                next()
-              })
+  request.del(this.URI, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }, next)
 }
 
 Server.prototype.start = function (filePath, next) {
@@ -71,14 +86,14 @@ Server.prototype.start = function (filePath, next) {
     fs.readFile(filePath, 'utf8', function (err, data) {
       if (err) throw err
       data = data || ''
-      self.sock.emit('content', marked(data))
+      self.sock.emit('content', md.render(data))
     })
   })
 
   app.use(parser.json())
   app.use(express.static(path.join(__dirname, 'public')))
   app.use(function (req, res, next) {
-    if (new RegExp('.' + ImageExtesions.join('|') + '$').test(req.path)) {
+    if (new RegExp('.' + ImageExtensions.join('|') + '$').test(req.path)) {
       res.sendFile(path.join(filePath, '../' + req.path), sendFileOpts)
     } else {
       next()
