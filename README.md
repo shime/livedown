@@ -11,6 +11,15 @@ Live markdown previews for your favorite editor.
 * [Emacs plugin](https://github.com/shime/emacs-livedown)
 * [Sublime plugin](https://github.com/shime/sublime-livedown)
 
+## Features
+
+* Emojis :sparkles: :smile: :tada:
+* GitHub flavored clickable headings/permalinks
+* GitHub flavored checkboxes
+* Real-time instant preview
+
+And more!
+
 ## Installation
 
     $ npm install -g livedown
