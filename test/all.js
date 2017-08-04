@@ -5,16 +5,15 @@ var Browser = require('zombie')
 var server = require('./../server')()
 var fs = require('fs')
 
-Browser.localhost('localhost', 1337)
 var browser = new Browser()
 
 describe('livedown', function () {
-  before(function () {
-    server.start('test/fixtures/basic.md')
+  before(function (done) {
+    server.start('test/fixtures/basic.md', done)
   })
 
   it('renders markdown correctly', function (done) {
-    browser.visit('/', {runScripts: true}, function (error) {
+    browser.visit('http://localhost:1337', {runScripts: true}, function (error) {
       if (error) throw error
       expect(browser.evaluate("$('.markdown-body h1').text()")).to.be('h1')
       done()
@@ -30,7 +29,7 @@ describe('livedown', function () {
     })
 
     it('live updates the rendered markdown', function (done) {
-      browser.visit('/', function (error) {
+      browser.visit('http://localhost:1337', function (error) {
         if (error) throw error
         fs.writeFile(fixturePath, '## h2', function () {
           setTimeout(function () {
@@ -47,6 +46,8 @@ describe('livedown', function () {
   })
 
   after(function () {
-    server.stop()
+    server.stop(function (err) {
+      if (err) throw err
+    })
   })
 })
