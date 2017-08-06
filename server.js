@@ -8,7 +8,7 @@ var chokidar = require('chokidar')
 var parser = require('body-parser')
 var request = require('request')
 var markdownIt = require('markdown-it')
-var markdownItCheckbox = require('markdown-it-checkbox')
+var markdownItTaskCheckbox = require('markdown-it-task-checkbox')
 var markdownItEmoji = require('markdown-it-emoji')
 var markdownItGitHubHeadings = require('markdown-it-github-headings')
 
@@ -16,7 +16,7 @@ var md = markdownIt({
   html: true,
   linkify: true
 })
-md.use(markdownItCheckbox)
+md.use(markdownItTaskCheckbox)
 md.use(markdownItEmoji)
 md.use(markdownItGitHubHeadings, {
   prefix: ''
