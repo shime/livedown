@@ -3,7 +3,7 @@ usage: livedown {COMMANDS} <PATH> {OPTIONS}
   Previews markdown from PATH in browser and watches for changes.
 
 COMMANDS:
-  
+
   start PATH      Starts watching a file on a given absolute PATH.
   stop            Stops the livedown process.
 
@@ -13,5 +13,5 @@ OPTIONS:
   --open          Opens the preview in the browser.
   --verbose       Provides debug messages.
   --port PORT     Specifies the port to use.
-  --browser       Specifies the browser to use.
+  --browser       Specifies the browser command line to execute.
 
