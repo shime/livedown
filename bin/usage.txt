@@ -15,3 +15,9 @@ OPTIONS:
   --port PORT     Specifies the port to use.
   --browser       Specifies the browser command line to execute.
 
+EXAMPLES:
+
+  livedown start README.md --port 4242
+  livedown start README.md --open --browser "firefox -P livedown"
+  livedown start README.md --open --browser "'google chrome' --incognito"
+  livedown stop
