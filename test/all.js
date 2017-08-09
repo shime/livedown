@@ -10,19 +10,13 @@ var browser = new Browser()
 
 describe('utils.splitCommandLine', function () {
   it('returns an empty array when given a falsy input', function () {
-    expect(utils.splitCommandLine(undefined)).to.be.an(Array)
-    expect(utils.splitCommandLine(undefined)).to.be.empty()
-    expect(utils.splitCommandLine(null)).to.be.an(Array)
-    expect(utils.splitCommandLine(null)).to.be.empty()
+    expect(utils.splitCommandLine(undefined)).to.eql([])
+    expect(utils.splitCommandLine(null)).to.eql([])
+    expect(utils.splitCommandLine('')).to.eql([])
   })
 
-  it('splits the input string by spaces', function () {
-    expect(utils.splitCommandLine('firefox -new-window')).to.be.an(Array)
+  it('splits the input string on spaces unless they are quoted', function () {
     expect(utils.splitCommandLine('firefox -new-window')).to.eql(['firefox', '-new-window'])
-  })
-
-  it('ignores spaces in quoted parts', function () {
-    expect(utils.splitCommandLine("'google chrome' --incognito")).to.be.an(Array)
     expect(utils.splitCommandLine("'google chrome' --incognito")).to.eql(['google chrome', '--incognito'])
   })
 })
