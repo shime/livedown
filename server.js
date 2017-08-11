@@ -10,7 +10,8 @@ var request = require('request')
 var markdownIt = require('markdown-it')
 var markdownItTaskCheckbox = require('markdown-it-task-checkbox')
 var markdownItEmoji = require('markdown-it-emoji')
-var markdownItGitHubHeadings = require('markdown-it-github-headings')
+var markdownItFootnote = require('markdown-it-github-headings')
+var markdownItGitHubHeadings = require('markdown-it-footnote')
 
 var md = markdownIt({
   html: true,
@@ -18,6 +19,7 @@ var md = markdownIt({
 })
 md.use(markdownItTaskCheckbox)
 md.use(markdownItEmoji)
+md.use(markdownItFootnote)
 md.use(markdownItGitHubHeadings, {
   prefix: ''
 })

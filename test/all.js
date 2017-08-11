@@ -34,6 +34,26 @@ describe('livedown', function () {
     })
   })
 
+  describe('footnotes', function () {
+    it('renders footnote ref', function (done) {
+      browser.visit('http://localhost:1337', {runScripts: true}, function (error) {
+        if (error) throw error
+        expect(browser.evaluate("$('.markdown-body a#fnref1').text()")).to.be('[1]')
+        expect(browser.evaluate("$('.markdown-body a#fnref1').attr('href')")).to.be('#fn1')
+        done()
+      })
+    })
+
+    it('renders footnote', function (done) {
+      browser.visit('http://localhost:1337', {runScripts: true}, function (error) {
+        if (error) throw error
+        expect(browser.evaluate("$('.markdown-body li#fn1 a').text()")).to.be('↩︎')
+        expect(browser.evaluate("$('.markdown-body li#fn1 a').attr('href')")).to.be('#fnref1')
+        done()
+      })
+    })
+  })
+
   describe('content changes', function () {
     var fixtureContent
     var fixturePath = 'test/fixtures/basic.md'
