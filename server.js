@@ -32,8 +32,6 @@ module.exports = function (opts) {
   return new Server(opts)
 }
 
-var ImageExtensions = 'jpg jpeg gif png svg bmp xbm'.split(' ')
-
 function Server (opts) {
   opts = opts || {}
 
@@ -91,18 +89,11 @@ Server.prototype.start = function (filePath, next) {
   })
 
   app.use(parser.json())
-  app.use(express.static(path.join(__dirname, 'public')))
-  app.use(function (req, res, next) {
-    if (new RegExp('.' + ImageExtensions.join('|') + '$').test(req.path)) {
-      res.sendFile(path.join(filePath, '../' + req.path), sendFileOpts)
-    } else {
-      next()
-    }
-  })
-
   app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'index.html'))
   })
+  app.use(express.static(path.join(__dirname, 'public')))
+  app.use(express.static(path.dirname(filePath)))
 
   app.delete('/', function (req, res) {
     io.emit('kill')
