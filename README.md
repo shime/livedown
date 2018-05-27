@@ -10,6 +10,7 @@ Live markdown previews for your favorite editor.
 * [Vim plugin](https://github.com/shime/vim-livedown)
 * [Emacs plugin](https://github.com/shime/emacs-livedown)
 * [Sublime plugin](https://github.com/shime/sublime-livedown)
+* [Kakoune plugin](https://github.com/Delapouite/kakoune-livedown)
 
 ## Features
 
