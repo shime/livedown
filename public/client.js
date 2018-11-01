@@ -12,6 +12,9 @@ socket.on('content', function (data) {
   $('pre').each(function (_, block) {
     hljs.highlightBlock(block)
   })
+
+  var updated = $('.markdown-body .detected-updated').get(0)
+  updated && updated.scrollIntoView && updated.scrollIntoView({ behavior: 'smooth' })
 })
 
 socket.on('title', function (data) {

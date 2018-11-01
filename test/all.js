@@ -45,9 +45,13 @@ describe('livedown', function () {
     it('live updates the rendered markdown', function (done) {
       browser.visit('http://localhost:1337', function (error) {
         if (error) throw error
+        expect(server.fileContentsCache.size).to.eql(1)
+        expect(server.fileContentsCache.has(fixturePath)).to.eql(true)
         fs.writeFile(fixturePath, '## h2', function () {
           setTimeout(function () {
             expect(browser.evaluate("$('.markdown-body h2').text()")).to.be('h2')
+            expect(browser.evaluate("$('.markdown-body .detected-updated').prop('localName')")).to.be('a')
+            expect(server.fileContentsCache.size).to.eql(1)
             done()
           }, 500)
         })
