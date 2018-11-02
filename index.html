@@ -15,6 +15,16 @@
   <script src="/vendor/zepto.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="/vendor/highlight.min.js"></script>
+  <script src="/vendor/mermaid.min.js"></script>
+  <script>
+    mermaid.mermaidAPI.initialize({
+      startOnLoad: false,
+      flowChart: {
+        useMaxWidth: false,
+        htmlLabels: true,
+      },
+    });
+  </script>
   <script src="/client.js"></script>
 </body>
 </html>
