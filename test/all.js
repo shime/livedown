@@ -50,7 +50,7 @@ describe('livedown', function () {
         fs.writeFile(fixturePath, '## h2', function () {
           setTimeout(function () {
             expect(browser.evaluate("$('.markdown-body h2').text()")).to.be('h2')
-            expect(browser.evaluate("$('.markdown-body .detected-updated').prop('localName')")).to.be('a')
+            expect(browser.evaluate("$('.markdown-body .detected-updated').prop('localName')")).to.be('h2')
             expect(server.fileContentsCache.size).to.eql(1)
             done()
           }, 500)
