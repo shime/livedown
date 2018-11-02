@@ -11,16 +11,7 @@ var markdownIt = require('markdown-it')
 var markdownItTaskCheckbox = require('markdown-it-task-checkbox')
 var markdownItEmoji = require('markdown-it-emoji')
 var markdownItGitHubHeadings = require('markdown-it-github-headings')
-
-var md = markdownIt({
-  html: true,
-  linkify: true
-})
-md.use(markdownItTaskCheckbox)
-md.use(markdownItEmoji)
-md.use(markdownItGitHubHeadings, {
-  prefix: ''
-})
+var detectHtml = require('detect-one-changed').detectHtml
 
 var app = express()
 var server = http.Server(app)
@@ -37,6 +28,7 @@ function Server (opts) {
 
   var self = this
 
+  this.fileContentsCache = new Map()
   this.port = opts.port || 1337
   this.URI = 'http://localhost:' + this.port
   this.sock = {emit: function () {}}
@@ -48,13 +40,37 @@ function Server (opts) {
   this.watch = function (path) {
     var self = this
     chokidar.watch(path).on('change', function (path, stats) {
-      fs.readFile(path, 'utf8', function (err, data) {
-        if (err) throw err
-        data = data || ''
-        self.sock.emit('content', md.render(data))
-      })
+      self.emitFile(path)
     })
   }
+}
+
+Server.prototype.emitFile = function (filePath) {
+  var self = this
+  var md = markdownIt({
+    html: true,
+    linkify: true
+  })
+  md.use(markdownItTaskCheckbox)
+  md.use(markdownItEmoji)
+  md.use(markdownItGitHubHeadings, {
+    prefix: ''
+  })
+  return new Promise((resolve, reject) => {
+    fs.readFile(filePath, 'utf8', function (err, data) {
+      if (err) reject(err)
+      data = data || ''
+      var cache = self.fileContentsCache
+      var currentRendered = md.render(data)
+      var prevRendered = cache.get(filePath)
+      cache.set(filePath, currentRendered)
+      if (cache && cache.has(filePath) && prevRendered) {
+        currentRendered = detectHtml(prevRendered, currentRendered, { position: false, ast: false }).text
+      }
+      self.sock.emit('content', currentRendered)
+      resolve()
+    })
+  })
 }
 
 Server.prototype.stop = function (next) {
@@ -81,11 +97,7 @@ Server.prototype.start = function (filePath, next) {
   io.on('connection', function (sock) {
     self.sock = sock
     self.sock.emit('title', path.basename(filePath))
-    fs.readFile(filePath, 'utf8', function (err, data) {
-      if (err) throw err
-      data = data || ''
-      self.sock.emit('content', md.render(data))
-    })
+    self.emitFile(filePath)
   })
 
   app.use(parser.json())
