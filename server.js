@@ -12,15 +12,20 @@ var markdownItTaskCheckbox = require('markdown-it-task-checkbox')
 var markdownItEmoji = require('markdown-it-emoji')
 var markdownItGitHubHeadings = require('markdown-it-github-headings')
 
-var md = markdownIt({
-  html: true,
-  linkify: true
-})
-md.use(markdownItTaskCheckbox)
-md.use(markdownItEmoji)
-md.use(markdownItGitHubHeadings, {
-  prefix: ''
-})
+function getMd () {
+  var md = markdownIt({
+    html: true,
+    linkify: true
+  })
+  md.use(markdownItTaskCheckbox)
+  md.use(markdownItEmoji)
+  md.use(markdownItGitHubHeadings, {
+    prefix: ''
+  })
+  return md
+}
+
+var md = getMd()
 
 var app = express()
 var server = http.Server(app)
@@ -48,6 +53,7 @@ function Server (opts) {
   this.watch = function (path) {
     var self = this
     chokidar.watch(path).on('change', function (path, stats) {
+      md = getMd()
       fs.readFile(path, 'utf8', function (err, data) {
         if (err) throw err
         data = data || ''
@@ -81,6 +87,7 @@ Server.prototype.start = function (filePath, next) {
   io.on('connection', function (sock) {
     self.sock = sock
     self.sock.emit('title', path.basename(filePath))
+    md = getMd()
     fs.readFile(filePath, 'utf8', function (err, data) {
       if (err) throw err
       data = data || ''
