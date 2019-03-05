@@ -11,6 +11,9 @@ var markdownIt = require('markdown-it')
 var markdownItTaskCheckbox = require('markdown-it-task-checkbox')
 var markdownItEmoji = require('markdown-it-emoji')
 var markdownItGitHubHeadings = require('markdown-it-github-headings')
+// Note: using a forked version of markdown-it-katex until
+// the official version updates to comply with katex 0.10.x
+var markdownItKatex = require('@iktakahiro/markdown-it-katex')
 
 var md = markdownIt({
   html: true,
@@ -21,6 +24,7 @@ md.use(markdownItEmoji)
 md.use(markdownItGitHubHeadings, {
   prefix: ''
 })
+md.use(markdownItKatex)
 
 var app = express()
 var server = http.Server(app)
