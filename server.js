@@ -53,8 +53,8 @@ function Server (opts) {
 
   this.watcher.on('change', function (changedPath, stats) {
     var relativePath = path.join(
-        '/',  // relative to pseudo-root of web server
-        path.relative(self.dirname, changedPath))
+      '/', // relative to pseudo-root of web server
+      path.relative(self.dirname, changedPath))
 
     // early return for performance
     if (!(relativePath in self.pathToSock))
@@ -104,7 +104,6 @@ Server.prototype.start = function (filePath, next) {
   })
 
   io.on('connection', function (sock) {
-
     // HACK: dealing with the back/forward cache; see client.js
 
     // Markdown file asking for rendered content
@@ -123,7 +122,7 @@ Server.prototype.start = function (filePath, next) {
     })
 
     // Markdown file indicating it doesn't currently need attention
-    sock.on('goodbye', function(relativePath) {
+    sock.on('goodbye', function (relativePath) {
       delete self.pathToSock[relativePath]
       self.watcher.unwatch(path.join(self.dirname, relativePath))
     })
@@ -134,7 +133,7 @@ Server.prototype.start = function (filePath, next) {
 
   // redirect the root path to the file specified
   // in command line args
-  app.get('/', function(req, res) {
+  app.get('/', function (req, res) {
     res.redirect(self.originalRelativePath)
   })
 

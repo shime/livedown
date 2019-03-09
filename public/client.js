@@ -2,9 +2,9 @@
 
 var socket = io.connect(window.location.origin)
 
-hljs.configure({languages: []})
+hljs.configure({ languages: [] })
 
-pageshow = function (event) {
+var pageshow = function (event) {
   // HACK: you would assume we wouldn't ever need to reload
   // the window, and instead could just send 'ready' again;
   // I don't know why this doesn't work :(
@@ -14,7 +14,7 @@ pageshow = function (event) {
     socket.emit('hello', window.location.pathname)
 }
 
-pagehide = function (event) {
+var pagehide = function (event) {
   $('body').css('opacity', '0')
   socket.emit('goodbye', window.location.pathname)
 }
@@ -42,6 +42,7 @@ socket.on('content', function (data) {
   $('pre').each(function (_, block) {
     hljs.highlightBlock(block)
   })
+  $('.markdown-body').addClass('ready')
 })
 
 socket.on('title', function (data) {

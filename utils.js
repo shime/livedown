@@ -11,7 +11,7 @@ module.exports = {
   splitCommandLine: function (cmd) {
     if (cmd) {
       return cmd.match(/([^\s"']+|["'][^"']*["'])+/g)
-                .map(function (s) { return s.replace(/["']/g, '') })
+        .map(function (s) { return s.replace(/["']/g, '') })
     }
     return []
   }
