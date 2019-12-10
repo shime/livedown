@@ -3,6 +3,7 @@ notifications:
   email: false
 language: node_js
 node_js:
-  - "6"
-  - "7"
   - "8"
+  - "10"
+  - "12"
+  - "13"
