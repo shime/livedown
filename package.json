@@ -26,7 +26,7 @@
     "expect.js": "^0.3.1",
     "mocha": "^6.2.0",
     "np": "^2.9.0",
-    "standard": "^10.0.2",
+    "standard": "^14.3.1",
     "zombie": "^6.1.4"
   },
   "homepage": "https://github.com/shime/livedown",

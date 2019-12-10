@@ -39,7 +39,7 @@ function Server (opts) {
 
   this.port = opts.port || 1337
   this.URI = 'http://localhost:' + this.port
-  this.sock = {emit: function () {}}
+  this.sock = { emit: function () {} }
 
   this.listen = function (next) {
     server.listen(self.port, next)

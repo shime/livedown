@@ -2,7 +2,7 @@
 
 var socket = io.connect(window.location.origin)
 
-hljs.configure({languages: []})
+hljs.configure({ languages: [] })
 
 socket.on('content', function (data) {
   $('.markdown-body').html(data)

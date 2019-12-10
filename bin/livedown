@@ -25,7 +25,7 @@ function log (message) {
 }
 
 function open (uri) {
-  opn(uri, {app: utils.splitCommandLine(argv.browser)}).then(null, function () {
+  opn(uri, { app: utils.splitCommandLine(argv.browser) }).then(null, function () {
     console.log('cannot open browser, please visit ' + server.URI)
   })
 }
