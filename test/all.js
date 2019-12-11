@@ -27,7 +27,7 @@ describe('livedown', function () {
   })
 
   it('renders markdown correctly', function (done) {
-    browser.visit('http://localhost:1337', {runScripts: true}, function (error) {
+    browser.visit('http://localhost:1337', { runScripts: true }, function (error) {
       if (error) throw error
       expect(browser.evaluate("$('.markdown-body h1').text()")).to.be('h1')
       done()
