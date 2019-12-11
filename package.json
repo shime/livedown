@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
-    "mocha": "^3.5.0",
+    "mocha": "^6.2.0",
     "np": "^2.9.0",
     "standard": "^10.0.2",
     "zombie": "^5.0.7"
