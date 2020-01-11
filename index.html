@@ -6,11 +6,19 @@
   <link rel="stylesheet" href="/vendor/github-markdown.css">
   <link rel="stylesheet" href="/style.css">
   <link rel="stylesheet" href="/vendor/github.css">
+  <script type="text/javascript">
+    function changeTag() {
+      var div = document.getElementById("markdown-body");
+      var current = div.getAttribute("contenteditable");
+      div.setAttribute("contenteditable", current ===  "true" ? "false" : "true");
+    }
+  </script>
 
 </head>
 <body>
-  <article class="markdown-body">
-  </article>
+  <button type="button" onclick="changeTag();" style="float: right;" title="Toggle Editable"></button>
+  <div id='markdown-body' class='markdown-body' contenteditable='false'>
+  </div>
 
   <script src="/vendor/zepto.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
