@@ -11,6 +11,8 @@ var markdownIt = require('markdown-it')
 var markdownItTaskCheckbox = require('markdown-it-task-checkbox')
 var markdownItEmoji = require('markdown-it-emoji')
 var markdownItGitHubHeadings = require('markdown-it-github-headings')
+var katex = require('katex')
+var markdownItTexmath = require('markdown-it-texmath').use(katex)
 
 var md = markdownIt({
   html: true,
@@ -20,6 +22,11 @@ md.use(markdownItTaskCheckbox)
 md.use(markdownItEmoji)
 md.use(markdownItGitHubHeadings, {
   prefix: ''
+})
+var macros = {}
+md.use(markdownItTexmath, {
+    delimiters:'dollars',
+    macros:macros,
 })
 
 var app = express()
@@ -52,6 +59,8 @@ function Server (opts) {
         if (err) throw err
         data = data || ''
         self.sock.emit('content', md.render(data))
+        console.log(md.renderer);
+        console.log(macros)
       })
     })
   }
