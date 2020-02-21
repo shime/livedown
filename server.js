@@ -23,8 +23,10 @@ md.use(markdownItEmoji)
 md.use(markdownItGitHubHeadings, {
   prefix: ''
 })
+var macros = {}
 md.use(markdownItTexmath, {
-    delimiters:'dollars'
+    delimiters:'dollars',
+    macros:macros,
 })
 
 var app = express()
@@ -57,6 +59,8 @@ function Server (opts) {
         if (err) throw err
         data = data || ''
         self.sock.emit('content', md.render(data))
+        console.log(md.renderer);
+        console.log(macros)
       })
     })
   }
