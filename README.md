@@ -17,6 +17,7 @@ Live markdown previews for your favorite editor.
 * Emojis :sparkles: :smile: :tada:
 * GitHub flavored clickable headings/permalinks
 * GitHub flavored checkboxes
+* GitHub flavored Footnotes
 * Real-time instant preview
 
 And more!
