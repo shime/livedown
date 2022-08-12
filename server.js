@@ -42,7 +42,7 @@ function Server (opts) {
   this.sock = { emit: function () {} }
 
   this.listen = function (next) {
-    server.listen(self.port, next)
+    server.listen(self.port, 'localhost', next)
   }
 
   this.watch = function (path) {
